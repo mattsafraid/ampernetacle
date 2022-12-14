@@ -19,7 +19,7 @@ variable "shape" {
 
 variable "how_many_nodes" {
   type    = number
-  default = 4
+  default = 0
 }
 
 variable "availability_domain" {
@@ -35,4 +35,30 @@ variable "ocpus_per_node" {
 variable "memory_in_gbs_per_node" {
   type    = number
   default = 6
+}
+
+variable "parent_compartment_id" {
+  type = string
+}
+
+variable "nodes_description" {
+  type = map(any)
+  default = {
+    node1 = {
+      ad = 0
+      fd = 2
+    }
+    node2 = {
+      ad = 0
+      fd = 3
+    }
+    node3 = {
+      ad = 1
+      fd = 2
+    }
+    node4 = {
+      ad = 1
+      fd = 3
+    }
+  }
 }
