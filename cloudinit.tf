@@ -36,7 +36,7 @@ data "cloudinit_config" "_" {
           kubernetes.list:
             source: "deb https://apt.kubernetes.io/ kubernetes-xenial main"
             key: |
-              ${indent(8, data.http.apt_repo_key.body)}
+              ${indent(8, data.http.apt_repo_key.response_body)}
       users:
       - default
       - name: k8s
@@ -146,6 +146,7 @@ data "cloudinit_config" "_" {
 
 data "http" "apt_repo_key" {
   url = "https://packages.cloud.google.com/apt/doc/apt-key.gpg.asc"
+  request_headers = {"Content-Type" = "application/pgp-keys"}
 }
 
 # The kubeadm token must follow a specific format:
@@ -155,7 +156,7 @@ data "http" "apt_repo_key" {
 
 resource "random_string" "token1" {
   length  = 6
-  number  = true
+  numeric  = true
   lower   = true
   special = false
   upper   = false
